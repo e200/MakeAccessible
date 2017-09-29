@@ -143,17 +143,17 @@ $peopleGreeter = new PeopleGreeter();
 
 $peopleGreeter->addPersonToGreet($person);
 
-$accessiblePeopleToGreet = Make::accessible($peopleGreeter);
+$accessiblePeopleGreeter = Make::accessible($peopleGreeter);
 
-$this->assertTrue(in_array($person, $accessiblePeopleToGreet->peopleToGreet));
+$this->assertTrue(in_array($person, $accessiblePeopleGreeter->peopleToGreet));
 ```
 
 ```php
 $person = new Person('John Doe');
 
-$accessiblePeopleToGreet = Make::accessible($peopleGreeter);
+$accessiblePeopleGreeter = Make::accessible($peopleGreeter);
 
-$this->assertEquals("Hello Mr. John Doe", accessiblePeopleToGreet->greet($person));
+$this->assertEquals("Hello Mr. John Doe", accessiblePeopleGreeter->greet($person));
 ```
 
 Did you saw that??? Just one line of code and we made our **tests**!!!
