@@ -3,20 +3,36 @@
     "version": "0.1",
     "type": "helper",
     "license": "MIT",
+    "homepage": "https://github.com/e200/MakeAccessible",
+    "support": {
+        "email": "eleandro@inbox.ru",
+        "issue": "https:/github.com/e200/MakeAccessible/issues/new"
+    },
     "authors": [
         {
-            "name": "e200",
-            "email": "eleandro@inbox.ru"
+            "name": "Eleandro Duzentos",
+            "email": "eleandro@inbox.ru",
+            "homepage": "https://github.com/e200",
+            "role": "developer"
+        },
+        {
+            "name": "Unity framework",
+            "homepage": "https://github.com/unity-framework",
+            "role": "organization"
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
     "autoload": {
         "psr-4": {
-            "e200\\MakeAccessible": "src"
+            "e200\\MakeAccessible\\": "src"
         }
     },
-    "require-dev": {
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+        "require-dev": {
         "phpunit/phpunit": "^6.2"
     }
 }
