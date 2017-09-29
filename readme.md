@@ -20,8 +20,6 @@ using a **terminal/prompt** in your project folder.
 
 ## Usage
 
-### Problem:
-
 Suppose you have the following class:
 
 ```php
@@ -158,7 +156,7 @@ $accessiblePeopleToGreet = Make::accessible($peopleGreeter);
 $this->assertEquals("Hello Mr. John Doe", accessiblePeopleToGreet->greet($person));
 ```
 
-Did you saw that??? Just one line of code and we made our tests!!!
+Did you saw that??? Just one line of code and we made our **tests**!!!
 
 We gain access to our `PeopleGreeter` inaccessible members! ;)
 
