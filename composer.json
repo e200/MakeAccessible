@@ -1,5 +1,6 @@
 {
     "name": "e200/makeaccessible",
+    "description": "A PHP package that let you test private and protected methods and properties.",
     "version": "0.1",
     "type": "helper",
     "license": "MIT",
