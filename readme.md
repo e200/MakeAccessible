@@ -7,6 +7,7 @@ A PHP package that let you easely access or test inaccessible instance members (
  - [Installation](#installation)
  - [Usage](#usage)
  - [Contribute](#contribute)
+ - [Support](#support)
  - [Credits](#credits)
  - [License](#license)
 
