@@ -8,13 +8,13 @@ use e200\MakeAccessible\Exceptions\MethodNotFoundException;
 use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
 
 /**
- * Class MakeAccessible.
+ * Class Make.
  *
- * Makes encapsulated instances accessible.
+ * Makes encapsulated instance members accessible.
  *
  * @author Eleandro Duzentos <eleandro@inbox.ru>
  */
-class MakeAccessible
+class Make
 {
     /** @var object */
     protected $instance;
@@ -40,14 +40,14 @@ class MakeAccessible
     /**
      * @param object $instance The instance that you'll gain access.
      *
-     * @return MakeAccessible
+     * @return Make
      *
      * @throws InvalidObjectInstanceException
      */
-    static function make($instance)
+    static function accessible($instance)
     {
         if (is_object($instance)) {
-            return new MakeAccessible($instance);
+            return new Make($instance);
         } else {
             throw new InvalidObjectInstanceException("Invalid instance provided.");
         }
