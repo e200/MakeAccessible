@@ -1,7 +1,7 @@
 {
     "name": "e200/makeaccessible",
-    "description": "A PHP package that let you test private and protected methods and properties.",
-    "version": "0.1",
+    "description": "A PHP package that let you easely access or test inaccessible instance members (private, protected methods and properties).",
+    "version": "1.0",
     "type": "helper",
     "license": "MIT",
     "homepage": "https://github.com/e200/MakeAccessible",
