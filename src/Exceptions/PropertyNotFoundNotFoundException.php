@@ -10,7 +10,7 @@ use Throwable;
  *
  * @author Eleandro Duzentos <eleandro@inbox.ru>
  */
-class PropertyNotFoundNotFoundException extends Exception implements ContainerExceptionInterface
+class PropertyNotFoundNotFoundException extends Exception
 {
     public function __construct($message = '', $code = 0, Throwable $previous = null)
     {

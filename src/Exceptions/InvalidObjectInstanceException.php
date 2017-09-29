@@ -6,11 +6,11 @@ use Exception;
 use Throwable;
 
 /**
- * Class MethodNotFoundException.
+ * Class InvalidObjectIntanceException.
  *
  * @author Eleandro Duzentos <eleandro@inbox.ru>
  */
-class MethodNotFoundException extends Exception
+class InvalidObjectInstanceException extends Exception
 {
     public function __construct($message = '', $code = 0, Throwable $previous = null)
     {
