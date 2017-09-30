@@ -153,6 +153,8 @@ $this->assertTrue(in_array($person, $accessiblePeopleGreeter->peopleToGreet));
 ```php
 $person = new Person('John Doe');
 
+$peopleGreeter = new PeopleGreeter();
+
 $accessiblePeopleGreeter = Make::accessible($peopleGreeter);
 
 $this->assertEquals("Hello Mr. John Doe", accessiblePeopleGreeter->greet($person));
@@ -160,7 +162,7 @@ $this->assertEquals("Hello Mr. John Doe", accessiblePeopleGreeter->greet($person
 
 Did you saw that??? Just one line of code and we made our **tests**!!!
 
-We gain access to our `PeopleGreeter` inaccessible members! ;)
+We gain access to our `PeopleGreeter` inaccessible members in a common and friendly way! ;)
 
 ## Features
 
