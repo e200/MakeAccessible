@@ -2,10 +2,12 @@
 
 namespace e200\MakeAccessible;
 
-use e200\MakeAccessible\Exceptions\InvalidObjectInstanceException;
-use e200\MakeAccessible\Exceptions\MethodNotFoundException;
-use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
 use ReflectionClass;
+use e200\MakeAccessible\Exceptions\MethodNotFoundException;
+use e200\MakeAccessible\Exceptions\InvalidInstanceException;
+use e200\MakeAccessible\Exceptions\NonSingletonClassException;
+use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
+use e200\MakeAccessible\Exceptions\InvalidSingletonClassNameException;
 
 /**
  * Class Make.
@@ -22,17 +24,8 @@ class Make
     /** @var \ReflectionClass */
     protected $refClass;
 
-    /*
-     * MakeAccessible constructor.
-     *
-     * @param object $instance. The instance that will be reflected.
-     */
-    protected function __construct($instance)
+    protected function __construct()
     {
-        $refClass = new ReflectionClass($instance);
-
-        $this->setInstance($instance);
-        $this->setRefClass($refClass);
     }
 
     protected function __clone()
@@ -40,18 +33,43 @@ class Make
     }
 
     /**
-     * @param object $instance The instance that you'll gain access.
+     * @param object $instance. The instance that will have
+     *                          their members accessible.
      *
-     * @throws InvalidObjectInstanceException
+     * @throws InvalidInstanceException
      *
      * @return Make
      */
     public static function accessible($instance)
     {
         if (is_object($instance)) {
-            return new self($instance);
+            $make = new self();
+            $make->setInstance($instance);
+
+            $make->setRefClass(
+                $make->reflect($instance)
+            );
+
+            return $make;
         } else {
-            throw new InvalidObjectInstanceException('Invalid instance provided.');
+            throw new InvalidInstanceException('Invalid instance provided.');
+        }
+    }
+
+    /**
+     * @param string $singletonClass The singleton class name.
+     * @param array $arguments       Constructor arguments.
+     *
+     * @return object
+     *
+     * @throws InvalidSingletonClassNameException
+     */
+    public static function instance($singletonClass, $arguments = [])
+    {
+        if (is_string($singletonClass)) {
+            return (new self())->instantiate($singletonClass, $arguments);
+        } else {
+            throw new InvalidSingletonClassNameException('Invalid singleton class name provided.');
         }
     }
 
@@ -168,6 +186,18 @@ class Make
     }
 
     /**
+     * Makes a new ReflectionClass instance.
+     *
+     * @param $class
+     *
+     * @return ReflectionClass
+     */
+    protected function reflect($class)
+    {
+        return new ReflectionClass($class);
+    }
+
+    /**
      * Unlocks if encapsulated a property or a method inside `MakeAccessible::$instance`.
      *
      * @param \ReflectionMethod|\ReflectionProperty $refObject
@@ -176,6 +206,50 @@ class Make
     {
         if (!$refObject->isPublic()) {
             $refObject->setAccessible(true);
+        }
+    }
+
+    /**
+     * @param string $singletonClass
+     * @param array $arguments       Constructor arguments.
+     *
+     * @return object
+     *
+     * @throws NonSingletonClassException
+     */
+    protected function instantiate($singletonClass, $arguments = [])
+    {
+        // Getting the reflection class that represents the `$singletonClass`.
+        $refClass = $this->reflect($singletonClass);
+
+        // Getting the constructor of the `$refClass`.
+        $constructor = $refClass->getConstructor();
+
+        /*
+         * Every singleton class has a protected or private constructor.
+         *
+         * If our class constructor is null, that means our class has no
+         * constructor, what also means that our class isn't a singleton class.
+         *
+         * In this case we throw a `NonSingletonClassException`.
+         */
+        if (!is_null($constructor)) {
+            $instance = $refClass->newInstanceWithoutConstructor();
+
+            /*
+             * If our class has parameters on constructor, we unlock it
+             * (since is protected or private) and put `$arguments` into the
+             * constructor.
+             */
+            if ($constructor->getNumberOfParameters() > 0) {
+                $this->unlock($constructor);
+
+                $constructor->invokeArgs($instance, $arguments);
+            }
+
+            return $instance;
+        } else {
+            throw new NonSingletonClassException("Trying to instantiate a non singleton class.");
         }
     }
 }
