@@ -161,7 +161,7 @@ $reflectedClass = new \ReflectionClass($peopleGreeter);
 $methodName = 'greet';
 
 if ($reflectedClass->hasMethod($methodName)) {
-    $method = $reflectedClass->hasMethod($methodName);
+    $method = $reflectedClass->getMethod($methodName);
 
     $method->setAccessible(true);
 
