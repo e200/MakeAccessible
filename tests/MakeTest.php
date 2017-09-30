@@ -37,7 +37,14 @@ class MakeTest extends TestCase
     {
         $accessibleInstance = $this->getAccessibleClass();
 
-        $this->assertEquals('Hello my friend! :)', $accessibleInstance->hello());
+        $this->assertEquals('Hello Universe!', $accessibleInstance->helloUniverse());
+    }
+
+    public function testInvokePrivateMethod()
+    {
+        $accessibleInstance = $this->getAccessibleClass();
+
+        $this->assertEquals('Hi Eleandro!', $accessibleInstance->sayHi('Eleandro'));
     }
 
     public function testMethodNotFoundNotFoundExceptionOnInvokeMethod()
@@ -46,14 +53,21 @@ class MakeTest extends TestCase
 
         $this->expectException(MethodNotFoundException::class);
 
-        $accessibleInstance->BlackHole();
+        $accessibleInstance->blackHole();
     }
 
     public function testGetProtectedProperty()
     {
         $accessibleInstance = $this->getAccessibleClass();
 
-        $this->assertEquals('4.37 light/year', $accessibleInstance->alphaCentaurus);
+        $this->assertEquals('4.37 l/y', $accessibleInstance->alphaCentaurus);
+    }
+
+    public function testGetPrivateProperty()
+    {
+        $accessibleInstance = $this->getAccessibleClass();
+
+        $this->assertEquals('299.792.458 m/s', $accessibleInstance->lightSpeed);
     }
 
     public function testPropertyNotFoundNotFoundExceptionOnAccessProperty()
@@ -65,7 +79,7 @@ class MakeTest extends TestCase
         $accessibleInstance->nebulosa;
     }
 
-    public function testsSetProtectedProperty()
+    public function testSetProtectedProperty()
     {
         $accessibleInstance = $this->getAccessibleClass();
 
@@ -74,6 +88,17 @@ class MakeTest extends TestCase
         $accessibleInstance->alphaCentaurus = $expectedValue;
 
         $this->assertEquals($expectedValue, $accessibleInstance->alphaCentaurus);
+    }
+
+    public function testSetPrivateProperty()
+    {
+        $accessibleInstance = $this->getAccessibleClass();
+
+        $expectedValue = 200;
+
+        $accessibleInstance->lightSpeed = $expectedValue;
+
+        $this->assertEquals($expectedValue, $accessibleInstance->lightSpeed);
     }
 
     public function testPropertyNotFoundNotFoundExceptionOnSetProperty()
