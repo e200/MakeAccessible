@@ -2,10 +2,10 @@
 
 namespace e200\MakeAccessible;
 
-use ReflectionClass;
 use e200\MakeAccessible\Exceptions\InvalidObjectInstanceException;
 use e200\MakeAccessible\Exceptions\MethodNotFoundException;
 use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
+use ReflectionClass;
 
 /**
  * Class Make.
@@ -35,21 +35,23 @@ class Make
         $this->setRefClass($refClass);
     }
 
-    protected function __clone() {}
+    protected function __clone()
+    {
+    }
 
     /**
      * @param object $instance The instance that you'll gain access.
      *
-     * @return Make
-     *
      * @throws InvalidObjectInstanceException
+     *
+     * @return Make
      */
-    static function accessible($instance)
+    public static function accessible($instance)
     {
         if (is_object($instance)) {
-            return new Make($instance);
+            return new self($instance);
         } else {
-            throw new InvalidObjectInstanceException("Invalid instance provided.");
+            throw new InvalidObjectInstanceException('Invalid instance provided.');
         }
     }
 
@@ -97,13 +99,13 @@ class Make
      * Calls `$propertyName` method in the `MakeAccessible::$instance`.
      *
      * @param string $methodName Method name.
-     * @param array $arguments Method arguments.
-     *
-     * @return mixed
+     * @param array  $arguments  Method arguments.
      *
      * @throws MethodNotFoundException
+     *
+     * @return mixed
      */
-    function __call($methodName, $arguments)
+    public function __call($methodName, $arguments)
     {
         $refClass = $this->getRefClass();
 
@@ -123,11 +125,11 @@ class Make
      *
      * @param string $propertyName Property name.
      *
-     * @return mixed
-     *
      * @throws PropertyNotFoundNotFoundException
+     *
+     * @return mixed
      */
-    function __get($propertyName)
+    public function __get($propertyName)
     {
         $refClass = $this->getRefClass();
 
@@ -150,7 +152,7 @@ class Make
      *
      * @throws PropertyNotFoundNotFoundException
      */
-    function __set($propertyName, $value)
+    public function __set($propertyName, $value)
     {
         $refClass = $this->getRefClass();
 
