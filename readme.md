@@ -177,7 +177,7 @@ if ($reflectedClass->hasMethod($methodName)) {
 ##### Cons:
 - You need to write a lot of extra code just to make simples tests.
 - You need to write code that also need to be tested.
-- Its hard to reuse this code in other test either in others projects.
+- Its hard to reuse this code in other test either in other projects.
 
 We're testing only 2 methods, now think about 30 or 50??? No, No, Forget About It.
 
@@ -208,6 +208,17 @@ $this->assertEquals("Hello Mr. John Doe", accessiblePeopleGreeter->greet($person
 Did you saw that??? Just one line of code and we made our **tests**!!!
 
 We gain access to our `PeopleGreeter` inaccessible members in a common and friendly way! ;)
+
+##### Pros:
+- Reusable.
+- Just one line of code.
+- Very simple and friendly usage.
+- Don't requires write fake classes or methods.
+- Works for both private and protected members.
+- Encourages the use of encapsulation in projects providing an isolated and more flexible environment.
+
+##### Cons:
+- null
 
 ## Features
 
