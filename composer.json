@@ -1,6 +1,6 @@
 {
     "name": "make/accessible",
-    "description": "A PHP package that let you easely access or test inaccessible instance members (private, protected methods and properties).",
+    "description": "A very lightweight PHP package that let you easely access or test inaccessible instance members like private, protected methods and properties.",
     "version": "2.0",
     "type": "helper",
     "license": "MIT",
