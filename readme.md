@@ -56,13 +56,17 @@ class PeopleGreeter
 }
 ```
 
-This class is correct, it doesn't exposes its inner elements and was designed to do what it is supposed to do.
+This class is correct, it doesn't exposes its inner elements (encapsulation) and was designed to do what it is supposed to do.
 
-But, how are you going to **test** this class? Test if the `addPersonToGreet()` method is really adding `$person` into `$peopleToGreet` and `greet()` method is really distinguishing mens from womens?
+But, how are you going to **test** this class? **Test** if the `addPersonToGreet()` method is really adding `$person` into `$peopleToGreet` and `greet()` method is really distinguishing mens from womens?
+
+You can just make all your class members **public**, but that way you're breaking [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)), thats a bad pratice.
+
+So, what can be done?
 
 **Solutions:**
 
-One of the ways to **test** `addPersonToGreet()` would be by directly accessing `$peopleToGreet` and check if `$person` is really there:
+One way to **test** `addPersonToGreet()` would be by directly accessing `$peopleToGreet` and check if `$person` is really there:
 
 ```php
 $person = new Person('John Doe');
@@ -89,7 +93,7 @@ Error: Cannot access protected property PeopleGreeter::$peopleToGreet.
 Error: Cannot access protected method PeopleGreeter::greet().
 ```
 
-Because we can't access **protected** and **private** members outside of they **parent context**.
+because we can't access **protected** and **private** members outside of they **parent context**.
 
 Another way that works only with **protected members** is by **extending** their parent to another **class** that exposes its methods:
 
@@ -99,6 +103,11 @@ class ExtendedPeopleGreeter extends PeopleGreeter
     public function greet($person)
     {
         return parent::greet($person);
+    }
+
+    public function getPeopleToGreet()
+    {
+        return parent::$peopleToGreet;
     }
 }
 ```
@@ -114,16 +123,16 @@ $peopleGreeter = new ExtendedPeopleGreeter();
 
 $peopleGreeter->addPersonToGreet($person);
 
-$this->assertTrue(in_array($person, $peopleGreeter->peopleToGreet));
+$this->assertTrue(in_array($person, $peopleGreeter->getPeopleToGreet()));
 ```
 ##### Pros:
-- You can test your protected members.
+- You can test protected members.
 
 ##### Cons:
 - Don't works with private members.
-- You need to write a fake class every time you want to test the real class.
+- Makes really hard write simples tests.
+- You need to write a fake class every time you want to test a real class.
 - You need to write a method for each protected member you want to test.
-- Makes really hard to write simples test.
 
 But of course there's another solution: Using [PHP Reflection](php.net/manual/en/book.reflection.php):
 
@@ -175,7 +184,7 @@ if ($reflectedClass->hasMethod($methodName)) {
 - Works for both protected and private members.
 
 ##### Cons:
-- You need to write a lot of extra code just to make simples tests.
+- You need to write a lot of extra code to make simple tests.
 - You need to write code that also need to be tested.
 - Its hard to reuse this code in other test either in other projects.
 
@@ -215,10 +224,10 @@ We gain access to our `PeopleGreeter` inaccessible members in a common and frien
 - Makes tests really easy.
 - Works for both private and protected members.
 - Don't require write fake classes or methods for each test.
-- Encourages the use of encapsulation in projects providing a more isolated and flexible environment.
+- Encourages the usege of encapsulation in projects providing a more isolated and flexible environment.
 
 ##### Cons:
-- null
+- :sweat_smile:
 
 ## Features
 
@@ -235,9 +244,9 @@ We gain access to our `PeopleGreeter` inaccessible members in a common and frien
 
 We highly recomend the use of this package for tests purposes only.
 
-Avoid use this package to gain access to encapsulated classes, since it's like break the door of someone's house that doesn't want you inside.
+Avoid use this package to gain access to encapsulated classes, since it's like break the door of someone's house that doesn't want you to get inside.
 
-If you're testing the same class the same way, we recommend create a function `getAccessibleInstance()` at the bottom of your test class and there you make the instantiation, mocks, everything you need to instantiate your inaccessible class:
+If you're **testing** the same class the same way, we recommend create a function `getAccessibleInstance()` at the bottom of your **test** class and there you make the instantiation, mocks, everything you need to instantiate the class you need to **test**:
 
 ```php
 class PeopleGreeterTest extends TestCase
@@ -263,13 +272,15 @@ class PeopleGreeterTest extends TestCase
 
 ```
 
+For more tips about best pratices, please, read our [best pratices](https://github.com/e200/MakeAccessible/) documentation.
+
 ## Support
 
 Need a new feature? Found a bug? Please open a [new issue](https://github.com/e200/MakeAccessible/issues/new) or send me an [email](mailto://eleandro@inbox.ru) and we'll fix it as soon as possible.
 
 ## Contributing
 
-Feel free to contribute forking, making your changes and making a pull request.
+Feel free to contribute forking, making changes and pull requests.
 
 ## Credits
 
