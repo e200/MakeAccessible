@@ -1,12 +1,14 @@
 # e200/MakeAccessible
 
-A PHP package that let you easely access or test inaccessible instance members (private, protected methods and properties).
+A PHP package that let you easely access or test inaccessible instance members like private, protected methods and properties.
 
 ## Table of contents
 
  - [Installation](#installation)
  - [Usage](#usage)
  - [Contribute](#contribute)
+ - [Features](#features)
+ - [Best pretices](#bestpratices)
  - [Support](#support)
  - [Credits](#credits)
  - [License](#license)
@@ -14,7 +16,7 @@ A PHP package that let you easely access or test inaccessible instance members (
 ## Installation
 To install you must have [composer](https://getcomposer.org/) installed, then run:
 
-    composer require e200/makeaccessible
+    composer require make/accessible
 
 using a **terminal/prompt** in your project folder.
 
@@ -159,6 +161,49 @@ $this->assertEquals("Hello Mr. John Doe", accessiblePeopleGreeter->greet($person
 Did you saw that??? Just one line of code and we made our **tests**!!!
 
 We gain access to our `PeopleGreeter` inaccessible members! ;)
+
+## Features
+
+- Get values from inaccessible properties.
+- Set values into inaccessible properties.
+- Call inaccessible methods.
+
+##### Coming soon:
+
+- Instantiate classes with inaccessible constructors (Singletons).
+- Clone classes with inaccessible clones.
+
+## Best pratices
+
+We highly recomend the use of this package for tests purposes only.
+
+Avoid use this package to gain access to encapsulated classes, since it's like break the door of someone's house that doesn't want you inside.
+
+If you're testing the same class the same way, we recommend create a function `getAccessibleInstance()` at the bottom of your test class and there you make the instantiation, mocks, everything you need to instantiate your inaccessible class:
+
+```php
+class PeopleGreeterTest extends TestCase
+{
+    public function testGreet()
+    {
+        $person = new Person('John Doe');
+
+        $peopleGreeter = $this->getAccessibleInstance();
+
+        $this->assertEquals("Hello Mr. John Doe", $peopleGreeter->greet($person));
+    }
+
+    Others test functions...
+
+    public function getAccessibleInstance()
+    {
+        $instance = new PeopleGreeter();
+
+        return Make::accessible($instance);
+    }
+}
+
+```
 
 ## Support
 
