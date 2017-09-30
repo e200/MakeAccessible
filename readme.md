@@ -116,10 +116,10 @@ $peopleGreeter->addPersonToGreet($person);
 
 $this->assertTrue(in_array($person, $peopleGreeter->peopleToGreet));
 ```
-#### Pros:
+##### Pros:
 - You can test your protected members.
 
-#### Cons:
+##### Cons:
 - Don't works with private members.
 - You need to write a fake class every time you want to test the real class.
 - You need to write a method for each protected member you want to test.
@@ -171,17 +171,17 @@ if ($reflectedClass->hasMethod($methodName)) {
 }
 ```
 
-#### Pros:
+##### Pros:
 - Works for both protected and private members.
 
-#### Cons:
+##### Cons:
 - You need to write a lot of extra code just to make simples tests.
 - You need to write code that also need to be tested.
 - Its hard to reuse this code in other test either in others projects.
 
 We're testing only 2 methods, now think about 30 or 50??? No, No, Forget About It.
 
-Now see how easy to test it will be using **MakeAccessible**:
+### Using **MakeAccessible**:
 
 ```php
 $person = new Person('John Doe');
