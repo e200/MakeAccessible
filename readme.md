@@ -212,7 +212,7 @@ We gain access to our `PeopleGreeter` inaccessible members in a common and frien
 ##### Pros:
 - User friendly.
 - Just one line of code.
-- Makes tests really simple.
+- Makes tests really easy.
 - Works for both private and protected members.
 - Don't require write fake classes or methods for each test.
 - Encourages the use of encapsulation in projects providing an isolated and more flexible environment.
