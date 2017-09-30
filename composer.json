@@ -1,7 +1,7 @@
 {
-    "name": "e200/makeaccessible",
+    "name": "make/accessible",
     "description": "A PHP package that let you easely access or test inaccessible instance members (private, protected methods and properties).",
-    "version": "1.0",
+    "version": "2.0",
     "type": "helper",
     "license": "MIT",
     "homepage": "https://github.com/e200/MakeAccessible",
@@ -33,7 +33,7 @@
             "Tests\\": "tests"
         }
     },
-        "require-dev": {
+    "require-dev": {
         "phpunit/phpunit": "^6.2"
     }
 }
