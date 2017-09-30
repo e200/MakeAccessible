@@ -6,10 +6,10 @@ A PHP package that let you easely access or test inaccessible instance members l
 
  - [Installation](#installation)
  - [Usage](#usage)
- - [Contribute](#contribute)
  - [Features](#features)
- - [Best pretices](#bestpratices)
+ - [Best pretices](#best-pratices)
  - [Support](#support)
+ - [Contribute](#contribute)
  - [Credits](#credits)
  - [License](#license)
 
