@@ -210,11 +210,11 @@ Did you saw that??? Just one line of code and we made our **tests**!!!
 We gain access to our `PeopleGreeter` inaccessible members in a common and friendly way! ;)
 
 ##### Pros:
-- Reusable.
+- User friendly.
 - Just one line of code.
-- Very simple and friendly usage.
-- Don't requires write fake classes or methods.
+- Makes tests really simple.
 - Works for both private and protected members.
+- Don't require write fake classes or methods for each test.
 - Encourages the use of encapsulation in projects providing an isolated and more flexible environment.
 
 ##### Cons:
