@@ -9,7 +9,7 @@ namespace Tests;
  */
 class Quazar
 {
-    private   $lightSpeed     = '299.792.458 m/s';
+    private $lightSpeed = '299.792.458 m/s';
     protected $alphaCentaurus = '4.37 l/y';
 
     private function sayHi($name)

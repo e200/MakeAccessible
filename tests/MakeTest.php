@@ -3,10 +3,9 @@
 use e200\MakeAccessible\Exceptions\InvalidObjectInstanceException;
 use e200\MakeAccessible\Exceptions\MethodNotFoundException;
 use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
-
-use Tests\Quazar;
-use PHPUnit\Framework\TestCase;
 use e200\MakeAccessible\Make;
+use PHPUnit\Framework\TestCase;
+use Tests\Quazar;
 
 /**
  * Class MakeTest.
