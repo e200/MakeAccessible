@@ -1,4 +1,4 @@
-# e200/MakeAccessible
+# Make/Accessible
 
 A PHP package that let you easely access or test inaccessible instance members like private, protected methods and properties.
 
