@@ -198,7 +198,7 @@ class Make
     }
 
     /**
-     * Unlocks if encapsulated a property or a method inside `MakeAccessible::$instance`.
+     * Unlocks an encapsulated property or a method inside `MakeAccessible::$instance`.
      *
      * @param \ReflectionMethod|\ReflectionProperty $refObject
      */
