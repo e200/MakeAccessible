@@ -1,13 +1,13 @@
 # Make/Accessible
 
-A very lightweight PHP package that let you easely access or test inaccessible instance members like private, protected methods and properties.
+A very lightweight PHP package that let you easily access and test singleton classes and inaccessible instance members like private or protected methods and properties.
 
 ## Table of contents
 
  - [Installation](#installation)
  - [Usage](#usage)
  - [Features](#features)
- - [Best pratices](#best-pratices)
+ - [Best practices](#best-practices)
  - [Support](#support)
  - [Contribute](#contribute)
  - [Credits](#credits)
@@ -56,7 +56,7 @@ class PeopleGreeter
 }
 ```
 
-This class is correct, it doesn't exposes its inner elements (encapsulation) and was designed to do what it is supposed to do.
+This class is correct, it does'nt exposes its inner elements (encapsulation) and was designed to do what it is supposed to do.
 
 But, how are you going to **test** this class? **Test** if the `addPersonToGreet()` method is really adding `$person` into `$peopleToGreet` and `greet()` method is really distinguishing mens from womens?
 
@@ -224,27 +224,22 @@ We gain access to our `PeopleGreeter` inaccessible members in a common and frien
 - Makes tests really easy.
 - Works for both private and protected members.
 - Don't require write fake classes or methods for each test.
-- Encourages the usege of encapsulation in projects providing a more isolated and flexible environment.
+- Encourages the usage of encapsulation in projects providing a more isolated and flexible environment.
 
 ##### Cons:
 - :sweat_smile:
 
 ## Features
-
+- Call inaccessible methods.
 - Get values from inaccessible properties.
 - Set values into inaccessible properties.
-- Call inaccessible methods.
-
-##### Coming soon:
-
 - Instantiate classes with inaccessible constructors (Singletons).
-- Clone classes that are protected from clones.
 
-## Best pratices
+## Best practices
 
-We highly recomend the use of this package for tests purposes only.
+We highly recommend the use of this package for tests purposes only.
 
-Avoid use this package to gain access to encapsulated classes, since it's like break the door of someone's house that doesn't want you to get inside.
+Avoid use this package to gain access to encapsulated classes, since it's like break the door of someone's house that does'nt want you to get inside.
 
 If you're **testing** the same class the same way, we recommend create a function `getAccessibleInstance()` at the bottom of your **test** class and there you make the instantiation, mocks, everything you need to instantiate the class you need to **test**:
 
@@ -272,7 +267,7 @@ class PeopleGreeterTest extends TestCase
 
 ```
 
-For more tips about best pratices, please, read our [best pratices](https://github.com/e200/MakeAccessible/) documentation.
+For more tips about best practices, please, read our [best practices](https://github.com/e200/MakeAccessible/) documentation.
 
 ## Support
 
