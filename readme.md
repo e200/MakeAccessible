@@ -7,7 +7,7 @@ A PHP package that let you easely access or test inaccessible instance members l
  - [Installation](#installation)
  - [Usage](#usage)
  - [Features](#features)
- - [Best pretices](#best-pratices)
+ - [Best pratices](#best-pratices)
  - [Support](#support)
  - [Contribute](#contribute)
  - [Credits](#credits)
@@ -21,6 +21,8 @@ To install you must have [composer](https://getcomposer.org/) installed, then ru
 using a **terminal/prompt** in your project folder.
 
 ## Usage
+
+**Problem:**
 
 Suppose you have the following class:
 
@@ -58,6 +60,8 @@ This class is correct, it doesn't exposes its inner elements and was designed to
 
 But, how are you going to **test** this class? Test if the `addPersonToGreet()` method is really adding `$person` into `$peopleToGreet` and `greet()` method is really distinguishing mens from womens?
 
+**Solutions:**
+
 One of the ways to **test** `addPersonToGreet()` would be by directly accessing `$peopleToGreet` and check if `$person` is really there:
 
 ```php
@@ -78,7 +82,7 @@ $person = new Person('John Doe');
 $this->assertEquals("Hello Mr. John Doe", (new PeopleGreeter())->greet($person));
 ```
 
-But of course these methods will not work, its will result in:
+But of course these methods will fail, its will result in:
 
 ```
 Error: Cannot access protected property PeopleGreeter::$peopleToGreet.
@@ -87,7 +91,41 @@ Error: Cannot access protected method PeopleGreeter::greet().
 
 Because we can't access **protected** and **private** members outside of they **parent context**.
 
-But of course there's a solution: Using [PHP Reflection](php.net/manual/en/book.reflection.php):
+Another way that works only with **protected members** is by **extending** their parent to another **class** that exposes its methods:
+
+```php
+class ExtendedPeopleGreeter extends PeopleGreeter
+{
+    public function greet($person)
+    {
+        return parent::greet($person);
+    }
+}
+```
+```php
+$person = new Person('John Doe');
+
+$this->assertEquals("Hello Mr. John Doe", (new ExtendedPeopleGreeter())->greet($person));
+```
+```php
+$person = new Person('John Doe');
+
+$peopleGreeter = new ExtendedPeopleGreeter();
+
+$peopleGreeter->addPersonToGreet($person);
+
+$this->assertTrue(in_array($person, $peopleGreeter->peopleToGreet));
+```
+#### Pros:
+- You can test your protected members.
+
+#### Cons:
+- Don't works with private members.
+- You need to write a fake class every time you want to test the real class.
+- You need to write a method for each protected member you want to test.
+- Makes really hard to write simples test.
+
+But of course there's another solution: Using [PHP Reflection](php.net/manual/en/book.reflection.php):
 
 ```php
 $person = new Person('John Doe');
@@ -132,7 +170,14 @@ if ($reflectedClass->hasMethod($methodName)) {
     $this->assertEquals("Hello Mr. John Doe", $returnedValue);
 }
 ```
-Yes, you need to write a lot of code just to make these simple **tests** works!!!
+
+#### Pros:
+- Works for both protected and private members.
+
+#### Cons:
+- You need to write a lot of extra code just to make simples tests.
+- You need to write code that also need to be tested.
+- Its hard to reuse this code in other test either in others projects.
 
 We're testing only 2 methods, now think about 30 or 50??? No, No, Forget About It.
 
@@ -173,7 +218,7 @@ We gain access to our `PeopleGreeter` inaccessible members in a common and frien
 ##### Coming soon:
 
 - Instantiate classes with inaccessible constructors (Singletons).
-- Clone classes with inaccessible clones.
+- Clone classes that are protected from clones.
 
 ## Best pratices
 
