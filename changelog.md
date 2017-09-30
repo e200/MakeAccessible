@@ -2,6 +2,15 @@
 
 All notable changes to **Make/Accessible** will be documented in this file.
 
+## 2.1 - 30/09/2017
+
+Added new functionality:
+
+Now you can also test singleton instances easily by using:
+```php
+$instance = Make::instance(Singleton::class);
+```
+
 ## 2.0 - 30/09/2017
 
 Renamed package from `e200/makeaccessible` to `make/accessible`.
