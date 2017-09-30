@@ -3,16 +3,22 @@
 namespace Tests;
 
 /**
- * Class MakeAccessibleTest.
+ * Class Quazar.
  *
  * @author Eleandro Duzentos <eleandro@inbox.ru>
  */
 class Quazar
 {
-    protected $alphaCentaurus = '4.37 light/year';
+    private   $lightSpeed     = '299.792.458 m/s';
+    protected $alphaCentaurus = '4.37 l/y';
 
-    protected function hello()
+    private function sayHi($name)
     {
-        return 'Hello my friend! :)';
+        return "Hi {$name}!";
+    }
+
+    protected function helloUniverse()
+    {
+        return 'Hello Universe!';
     }
 }
