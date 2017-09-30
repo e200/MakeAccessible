@@ -172,7 +172,7 @@ class Make
      */
     protected function unlock($refObject)
     {
-        if ($refObject->isProtected() || $refObject->isPrivate()) {
+        if (!$refObject->isPublic()) {
             $refObject->setAccessible(true);
         }
     }
