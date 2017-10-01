@@ -2,10 +2,8 @@
 
 namespace e200\MakeAccessible;
 
-use ReflectionClass;
 use e200\MakeAccessible\Exceptions\MethodNotFoundException;
 use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
-
 
 /**
  * AccessibleInstance.
@@ -22,7 +20,7 @@ class AccessibleInstance
     /** @var Reflector */
     protected $reflector;
 
-    function __construct($instance, Reflector $reflector)
+    public function __construct($instance, Reflector $reflector)
     {
         $this->instance = $instance;
         $this->reflector = $reflector;

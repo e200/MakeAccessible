@@ -35,7 +35,7 @@ class Singleton
      */
     public function getMessage()
     {
-        return "Works!";
+        return 'Works!';
     }
 
     /**

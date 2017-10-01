@@ -3,9 +3,6 @@
 namespace e200\MakeAccessible;
 
 use e200\MakeAccessible\Exceptions\MethodNotFoundException;
-use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
-use ReflectionClass;
-
 
 /**
  * AccessibleStatic.
