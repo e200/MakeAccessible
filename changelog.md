@@ -2,6 +2,17 @@
 
 All notable changes to **Make/Accessible** will be documented in this file.
 
+## 2.2.0 - 01/10/2017
+
+Added new functionality:
+
+Now you can also make a singleton instances accessible by using:
+```php
+$instance = Make::accessibleInstance(Singleton::class);
+```
+
+Some internal improvements.
+
 ## 2.1 - 30/09/2017
 
 Added new functionality:
