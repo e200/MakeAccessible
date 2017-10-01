@@ -1,11 +1,11 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use Tests\Quazar;
-use e200\MakeAccessible\Reflector;
 use e200\MakeAccessible\AccessibleInstance;
 use e200\MakeAccessible\Exceptions\MethodNotFoundException;
 use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
+use e200\MakeAccessible\Reflector;
+use PHPUnit\Framework\TestCase;
+use Tests\Quazar;
 
 class AccessibleInstanceTest extends TestCase
 {

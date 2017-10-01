@@ -2,7 +2,6 @@
 
 namespace e200\MakeAccessible;
 
-use ReflectionClass;
 use e200\MakeAccessible\Exceptions\InvalidInstanceException;
 use e200\MakeAccessible\Exceptions\InvalidSingletonClassNameException;
 
@@ -44,11 +43,11 @@ class Make
 
     /**
      * @param string $singletonClass The singleton class name.
-     * @param array $arguments       Constructor arguments.
-     *
-     * @return object
+     * @param array  $arguments      Constructor arguments.
      *
      * @throws InvalidSingletonClassNameException
+     *
+     * @return object
      */
     public static function instance($singletonClass, $arguments = [])
     {
@@ -61,7 +60,7 @@ class Make
 
     /**
      * @param string $singletonClass The singleton class name.
-     * @param array $arguments       Constructor arguments.
+     * @param array  $arguments      Constructor arguments.
      *
      * @return AccessibleInstance
      */

@@ -2,14 +2,14 @@
 
 namespace e200\MakeAccessible;
 
-use ReflectionClass;
 use e200\MakeAccessible\Exceptions\NonSingletonClassException;
+use ReflectionClass;
 
 /**
- * Class Reflector.
- *
- * @author Eleandro Duzentos <eleandro@inbox.ru>
- */
+  * Class Reflector.
+  *
+  * @author Eleandro Duzentos <eleandro@inbox.ru>
+  */
  class Reflector
  {
      /** @var \ReflectionClass */
@@ -83,9 +83,9 @@ use e200\MakeAccessible\Exceptions\NonSingletonClassException;
       * @param string $singletonClass
       * @param array $arguments       Constructor arguments.
       *
-      * @return object
-      *
       * @throws NonSingletonClassException
+      *
+      * @return object
       */
      public function instantiateSingleton($singletonClass, $arguments = [])
      {
@@ -104,7 +104,7 @@ use e200\MakeAccessible\Exceptions\NonSingletonClassException;
           * In this case we throw a `NonSingletonClassException`.
           */
          if (is_null($constructor)) {
-             throw new NonSingletonClassException("Trying to instantiate a non singleton class.");
+             throw new NonSingletonClassException('Trying to instantiate a non singleton class.');
          } else {
              /*
               * Here, we're instantiating our class without invoke the constructor.

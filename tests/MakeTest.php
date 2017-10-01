@@ -1,15 +1,13 @@
 <?php
 
+use e200\MakeAccessible\AccessibleInstance;
+use e200\MakeAccessible\Exceptions\InvalidInstanceException;
+use e200\MakeAccessible\Exceptions\InvalidSingletonClassNameException;
+use e200\MakeAccessible\Make;
 use PHPUnit\Framework\TestCase;
 use Tests\Calc;
 use Tests\Quazar;
 use Tests\Singleton;
-use e200\MakeAccessible\Exceptions\InvalidInstanceException;
-use e200\MakeAccessible\Exceptions\MethodNotFoundException;
-use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
-use e200\MakeAccessible\Exceptions\InvalidSingletonClassNameException;
-use e200\MakeAccessible\Make;
-use e200\MakeAccessible\AccessibleInstance;
 
 /**
  * Class MakeTest.
@@ -50,7 +48,7 @@ class MakeTest extends TestCase
         $instance = Make::instance(Singleton::class);
 
         $this->assertInstanceOf(Singleton::class, $instance);
-        $this->assertEquals("Works!", $instance->getMessage());
+        $this->assertEquals('Works!', $instance->getMessage());
     }
 
     /**
@@ -79,7 +77,7 @@ class MakeTest extends TestCase
     public function testAccessibleInstance()
     {
         $instance = Make::accessibleInstance(Singleton::class);
-        
+
         $this->assertTrue($instance->accessible());
     }
 
