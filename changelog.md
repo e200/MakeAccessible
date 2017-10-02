@@ -2,6 +2,10 @@
 
 All notable changes to **Make/Accessible** will be documented in this file.
 
+## 2.2.1 - 02/10/2017
+
+Internal improvements.
+
 ## 2.2.0 - 01/10/2017
 
 Added new functionality:
