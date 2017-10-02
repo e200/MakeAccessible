@@ -21,7 +21,7 @@ class SingletonFactory
      *
      * @return object
      */
-    public function make($singletonClass, $arguments = [])
+    public static function make($singletonClass, $arguments = [])
     {
         $reflector = new Reflector();
 
