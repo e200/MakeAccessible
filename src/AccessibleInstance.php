@@ -20,10 +20,14 @@ class AccessibleInstance
     /** @var Reflector */
     protected $reflector;
 
+    /** @var ReflectionClass */
+    protected $reflectedClass;
+
     public function __construct($instance, Reflector $reflector)
     {
-        $this->instance = $instance;
-        $this->reflector = $reflector;
+        $this->instance       = $instance;
+        $this->reflector      = $reflector;
+        $this->reflectedClass = $reflector::reflect($instance);
     }
 
     /**
@@ -48,16 +52,14 @@ class AccessibleInstance
      */
     public function __call($methodName, $arguments)
     {
-        $refClass = $this->reflector->getReflectedClass();
-
-        if ($refClass->hasMethod($methodName)) {
-            $method = $refClass->getMethod($methodName);
+        if ($this->reflectedClass->hasMethod($methodName)) {
+            $method = $this->reflectedClass->getMethod($methodName);
 
             $this->reflector->makeAccessibleIfInaccessible($method);
 
             return $method->invokeArgs($this->getInstance(), $arguments);
         } else {
-            throw new MethodNotFoundException("No method \"{$methodName}\" was found on class \"{$refClass->getName()}\".");
+            throw new MethodNotFoundException("No method \"{$methodName}\" was found on class \"{$this->reflectedClass->getName()}\".");
         }
     }
 
@@ -72,16 +74,14 @@ class AccessibleInstance
      */
     public function __get($propertyName)
     {
-        $refClass = $this->reflector->getReflectedClass();
-
-        if ($refClass->hasProperty($propertyName)) {
-            $property = $refClass->getProperty($propertyName);
+        if ($this->reflectedClass->hasProperty($propertyName)) {
+            $property = $this->reflectedClass->getProperty($propertyName);
 
             $this->reflector->makeAccessibleIfInaccessible($property);
 
             return $property->getValue($this->getInstance());
         } else {
-            throw new PropertyNotFoundNotFoundException("No property \"{$propertyName}\" was found on class \"{$refClass->getName()}\".");
+            throw new PropertyNotFoundNotFoundException("No property \"{$propertyName}\" was found on class \"{$this->reflectedClass->getName()}\".");
         }
     }
 
@@ -95,16 +95,14 @@ class AccessibleInstance
      */
     public function __set($propertyName, $value)
     {
-        $refClass = $this->reflector->getReflectedClass();
-
-        if ($refClass->hasProperty($propertyName)) {
-            $property = $refClass->getProperty($propertyName);
+        if ($this->reflectedClass->hasProperty($propertyName)) {
+            $property = $this->reflectedClass->getProperty($propertyName);
 
             $this->reflector->makeAccessibleIfInaccessible($property);
 
             $property->setValue($this->getInstance(), $value);
         } else {
-            throw new PropertyNotFoundNotFoundException("No property {$propertyName} was found on class \"{$refClass->getName()}\".");
+            throw new PropertyNotFoundNotFoundException("No property {$propertyName} was found on class \"{$this->reflectedClass->getName()}\".");
         }
     }
 }
