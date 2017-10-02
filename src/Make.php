@@ -2,6 +2,7 @@
 
 namespace e200\MakeAccessible;
 
+use e200\MakeAccessible\SingletonFactory;
 use e200\MakeAccessible\Exceptions\InvalidInstanceException;
 use e200\MakeAccessible\Exceptions\InvalidSingletonClassNameException;
 
@@ -33,7 +34,7 @@ class Make
     public static function accessible($instance)
     {
         if (is_object($instance)) {
-            $reflector = new Reflector($instance);
+            $reflector = new Reflector();
 
             return new AccessibleInstance($instance, $reflector);
         } else {
@@ -52,7 +53,7 @@ class Make
     public static function instance($singletonClass, $arguments = [])
     {
         if (is_string($singletonClass) && class_exists($singletonClass)) {
-            return (new Reflector($singletonClass))->instantiateSingleton($singletonClass, $arguments);
+            return SingletonFactory::make($singletonClass, $arguments);
         } else {
             throw new InvalidSingletonClassNameException('Invalid singleton class name provided.');
         }
