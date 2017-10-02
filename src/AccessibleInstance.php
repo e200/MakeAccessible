@@ -25,8 +25,8 @@ class AccessibleInstance
 
     public function __construct($instance, Reflector $reflector)
     {
-        $this->instance       = $instance;
-        $this->reflector      = $reflector;
+        $this->instance = $instance;
+        $this->reflector = $reflector;
         $this->reflectedClass = $reflector::reflect($instance);
     }
 

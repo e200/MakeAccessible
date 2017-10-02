@@ -2,7 +2,6 @@
 
 namespace e200\MakeAccessible;
 
-use e200\MakeAccessible\SingletonFactory;
 use e200\MakeAccessible\Exceptions\InvalidInstanceException;
 use e200\MakeAccessible\Exceptions\InvalidSingletonClassNameException;
 

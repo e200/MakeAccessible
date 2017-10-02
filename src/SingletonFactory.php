@@ -15,7 +15,7 @@ class SingletonFactory
 {
     /**
      * @param string $singletonClass
-     * @param array $arguments       Constructor arguments.
+     * @param array  $arguments      Constructor arguments.
      *
      * @throws NonSingletonClassException
      *
