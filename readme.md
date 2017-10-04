@@ -1,13 +1,13 @@
 # Make/Accessible
 
-A very lightweight PHP package that let you easily access and test singleton classes and inaccessible instance members like private or protected methods and properties.
+A very lightweight PHP package that let you easily access and test singleton classes and inaccessible instance members like private properties and protected methods.
 
 ## Table of contents
 
  - [Installation](#installation)
  - [Usage](#usage)
- - [Features](#features)
  - [Best practices](#best-practices)
+ - [Features](#features)
  - [Support](#support)
  - [Contribute](#contribute)
  - [Credits](#credits)
@@ -229,12 +229,6 @@ We gain access to our `PeopleGreeter` inaccessible members in a common and frien
 ##### Cons:
 - :sweat_smile:
 
-## Features
-- Call inaccessible methods.
-- Get values from inaccessible properties.
-- Set values into inaccessible properties.
-- Instantiate classes with inaccessible constructors (Singletons).
-
 ## Best practices
 
 We highly recommend the use of this package for tests purposes only.
@@ -268,6 +262,12 @@ class PeopleGreeterTest extends TestCase
 ```
 
 For more tips about best practices, please, read our [best practices](https://github.com/e200/MakeAccessible/) documentation.
+
+## Features
+- Call inaccessible methods.
+- Get values from inaccessible properties.
+- Set values into inaccessible properties.
+- Instantiate classes with inaccessible constructors (Singletons).
 
 ## Support
 
