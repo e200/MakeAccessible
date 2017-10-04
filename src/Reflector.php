@@ -34,11 +34,11 @@ use ReflectionClass;
      }
 
      /**
-      * Makes a member accessible if its inaccessible.
+      * Makes a member accessible if isn't.
       *
       * @param \ReflectionMethod|\ReflectionProperty $refObject
       */
-     public function makeAccessibleIfInaccessible($refObject)
+     public function makeAccessibleIfNot($refObject)
      {
          if (!$this->isAccessible($refObject)) {
              $this->makeAccessible($refObject);
