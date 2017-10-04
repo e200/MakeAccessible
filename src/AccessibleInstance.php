@@ -55,7 +55,7 @@ class AccessibleInstance
         if ($this->reflectedClass->hasMethod($methodName)) {
             $method = $this->reflectedClass->getMethod($methodName);
 
-            $this->reflector->makeAccessibleIfInaccessible($method);
+            $this->reflector->makeAccessibleIfNot($method);
 
             return $method->invokeArgs($this->getInstance(), $arguments);
         } else {
@@ -77,7 +77,7 @@ class AccessibleInstance
         if ($this->reflectedClass->hasProperty($propertyName)) {
             $property = $this->reflectedClass->getProperty($propertyName);
 
-            $this->reflector->makeAccessibleIfInaccessible($property);
+            $this->reflector->makeAccessibleIfNot($property);
 
             return $property->getValue($this->getInstance());
         } else {
@@ -98,7 +98,7 @@ class AccessibleInstance
         if ($this->reflectedClass->hasProperty($propertyName)) {
             $property = $this->reflectedClass->getProperty($propertyName);
 
-            $this->reflector->makeAccessibleIfInaccessible($property);
+            $this->reflector->makeAccessibleIfNot($property);
 
             $property->setValue($this->getInstance(), $value);
         } else {
