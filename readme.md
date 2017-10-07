@@ -14,12 +14,8 @@ A very lightweight PHP package that let you easily access and test singleton cla
  - [License](#license)
 
 ## Installation
-To install you must have [composer](https://getcomposer.org/) installed, then run:
-
     composer require make/accessible
-
-using a **terminal/prompt** in your project folder.
-
+    
 ## Usage
 
 **Problem:**
