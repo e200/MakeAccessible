@@ -27,7 +27,7 @@ class AccessibleInstance
     {
         $this->instance = $instance;
         $this->reflector = $reflector;
-        $this->reflectedClass = $reflector::reflect($instance);
+        $this->reflectedClass = $reflector->reflect($instance);
     }
 
     /**

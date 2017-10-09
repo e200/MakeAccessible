@@ -26,7 +26,7 @@ class SingletonFactory
         $reflector = new Reflector();
 
         // Getting the reflected `$singletonClass`.
-        $refClass = $reflector::reflect($singletonClass);
+        $refClass = $reflector->reflect($singletonClass);
 
         // Getting the constructor of the `$refClass`.
         $constructor = $refClass->getConstructor();
