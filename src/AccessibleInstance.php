@@ -35,7 +35,7 @@ class AccessibleInstance
      *
      * @return object
      */
-    protected function getInstance()
+    public function getInstance()
     {
         return $this->instance;
     }
