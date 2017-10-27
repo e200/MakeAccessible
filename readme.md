@@ -1,30 +1,65 @@
 # Make/Accessible
 
-Lightweight PHP package that let you easily test singleton classes and inaccessible (private or protected) instance members.
+Lightweight PHP package that let you test singleton classes and inaccessible (private or protected) instance members.
+
+You can find documentation about the problems that this package solves [here](https://github.com/e200/MakeAccessible/tree/master/docs/problems).
 
 ## Table of contents
 
- - [Installation](#installation)
- - [Features](#features)
- - [Usage](#usage)
- - [Best practices](#best-practices)
- - [Support](#support)
- - [Contribute](#contribute)
- - [Credits](#credits)
- - [License](#license)
+- [Installation](#installation)
+- [Features](#features)
+- [Usage](#usage)
+- [Best practices](#best-practices)
+- [Support](#support)
+- [Contribute](#contribute)
+- [Credits](#credits)
+- [License](#license)
 
 ## Installation
+
     composer require make/accessible
-    
+
 ## Features
-- [Call inaccessible methods](https://github.com/e200)
-- [Set values into inaccessible properties](https://github.com/e200)
-- [Get values from inaccessible properties](https://github.com/e200)
-- [Instantiate singleton classes](https://github.com/e200)
-    
+
+- Call inaccessible methods
+- Set values into inaccessible properties
+- Get values from inaccessible properties
+- Instantiate singleton classes
+
 ## Usage
 
-You can read about witch problems we solve [here](https://github.com/e200/MakeAccessible/tree/master/docs/problems).
+```php
+<?php
+
+use Task;
+
+class Queue
+{
+    protected $tasks = [];
+
+    public function addTask(Task $task)
+    {
+        $this->tasks[] = $task;
+    }
+
+    public function runAll()
+    {
+        foreach ($this->tasks as $task) {
+            $task->run();
+        }
+    }
+}
+```
+
+### Call inaccessible methods
+
+```php
+public function testValidate()
+{
+    $this->assertEquals()
+}
+
+```
 
 ## Best practices
 
