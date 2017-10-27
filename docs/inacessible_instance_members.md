@@ -8,7 +8,7 @@ use Person;
 /**
  * Class PeopleGreeter.
  *
- * Greats a list of persons.
+ * Greats a list of persons, nothing more.
  */
 class PeopleGreeter
 {
