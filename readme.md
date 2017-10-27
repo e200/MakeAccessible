@@ -1,6 +1,6 @@
 # Make/Accessible
 
-A very lightweight PHP package that let you easily access and test singleton classes and inaccessible instance members like private properties and protected methods.
+Lightweight PHP package that let you easily access and test singleton classes and inaccessible instance members like private properties and protected methods.
 
 ## Table of contents
 
