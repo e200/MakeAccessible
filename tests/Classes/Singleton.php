@@ -31,17 +31,17 @@ class Singleton
     }
 
     /**
-     * Used to check if `Make::instance()` works.
+     * Used to check if `Make::accessibleInstance()` works.
      */
-    public function getMessage()
+    public function isOk()
     {
-        return 'Works!';
+        return true;
     }
 
     /**
      * Used to check if `Make::accessibleInstance()` works.
      */
-    private function accessible()
+    private function isAccessible()
     {
         return true;
     }
