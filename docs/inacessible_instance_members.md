@@ -127,7 +127,7 @@ $this->assertTrue(in_array($person, $peopleGreeter->getPeopleToGreet()));
 - You need to write a fake class every time you want to test a real class.
 - You need to write a method for each inaccessilble member you want to test.
 
-But of course there's another solution: Using [PHP Reflection](php.net/manual/en/book.reflection.php):
+But of course there's another solution: Using [PHP Reflection](http://php.net/manual/en/book.reflection.php):
 
 ```php
 $person = new Person('John Doe');
