@@ -17,10 +17,10 @@ Lightweight PHP package that let you easily test singleton classes and inaccessi
     composer require make/accessible
     
 ## Features
-- [Call inaccessible methods](https://github.com/e200).
-- [Set values into inaccessible properties](https://github.com/e200).
-- [Get values from inaccessible properties](https://github.com/e200).
-- [Instantiate singleton classes](https://github.com/e200).
+- [Call inaccessible methods](https://github.com/e200)
+- [Set values into inaccessible properties](https://github.com/e200)
+- [Get values from inaccessible properties](https://github.com/e200)
+- [Instantiate singleton classes](https://github.com/e200)
     
 ## Usage
 
