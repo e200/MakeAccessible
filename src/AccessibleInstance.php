@@ -41,6 +41,42 @@ class AccessibleInstance
     }
 
     /**
+     * Called when trying to invoke an instance method.
+     *
+     * @param string $methodName
+     * @param array  $arguments
+     *
+     * @return mixed|null
+     */
+    public function __call($methodName, $arguments)
+    {
+        return $this->call($methodName, $arguments);
+    }
+
+    /**
+     * Called when trying to set a property value.
+     *
+     * @param string $propertyName
+     * @param mixed $value
+     */
+    public function __set($propertyName, $value)
+    {
+        $this->set($propertyName, $value);
+    }
+
+    /**
+     * Called when trying to get a property value.
+     *
+     * @param string $propertyName
+     * 
+     * @return mixed
+     */
+    public function __get($propertyName)
+    {
+        return $this->get($propertyName);
+    }
+
+    /**
      * Calls `$propertyName` method in the `static::$instance`.
      *
      * @param string $methodName Method name.
@@ -50,7 +86,7 @@ class AccessibleInstance
      *
      * @return mixed
      */
-    public function __call($methodName, $arguments)
+    public function call($methodName, $arguments)
     {
         if ($this->reflectedClass->hasMethod($methodName)) {
             $method = $this->reflectedClass->getMethod($methodName);
@@ -61,16 +97,6 @@ class AccessibleInstance
         } else {
             throw new MethodNotFoundException("No method \"{$methodName}\" was found on class \"{$this->reflectedClass->getName()}\".");
         }
-    }
-
-    public function __set($propertyName, $value)
-    {
-        $this->set($propertyName, $value);
-    }
-
-    public function __get($propertyName)
-    {
-        return $this->get($propertyName);
     }
 
     /**
@@ -121,7 +147,7 @@ class AccessibleInstance
      * Adds an item to an array property.
      *
      * Unfortunatelly we cannot directly set an array index
-     * like: $instance->array[$index] = 'a', so, thats the
+     * like: `$instance->array[$index] = 'a'`, so, thats the
      * the temporary alternative until we find another.
      *
      * @param string     $propertyName
