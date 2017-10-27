@@ -31,34 +31,48 @@ You can find documentation about the problems that this package solves [here](ht
 ```php
 <?php
 
-use Task;
-
-class Queue
+class Inaccessible
 {
-    protected $tasks = [];
+    private $privateProperty = true;
 
-    public function addTask(Task $task)
+    public setPrivateProperty($value)
     {
-        $this->tasks[] = $task;
-    }
-
-    public function runAll()
-    {
-        foreach ($this->tasks as $task) {
-            $task->run();
-        }
+        $this->privateProperty = $value;
     }
 }
 ```
 
-### Call inaccessible methods
-
 ```php
-public function testValidate()
+<?php
+
+use Inaccessible;
+use e200\MakeAccessible\Make;
+use PHPUnit\Framework\TestCase;
+
+class InaccessibleTest extends TestCase
 {
-    $this->assertEquals()
+    public function testSetPrivateProperty()
+    {
+        $instance = new Inaccessible();
+        $accessibleInstance = Make::accessible($instance);
+
+        $expected = 'Lorem Ipsum';
+
+        $instance->setPrivateProperty($expected);
+        $this->assertEquals($expected, $accessibleInstance->privateProperty);
+    }
 }
 
+```
+
+```
+PHPUnit 6.3.1 by Sebastian Bergmann and contributors.
+
+                                                                  1 / 1 (100%)
+
+Time: 42 ms, Memory: 4.00MB
+
+OK (1 test, 1 assertion)
 ```
 
 ## Best practices
