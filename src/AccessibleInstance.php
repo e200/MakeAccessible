@@ -57,7 +57,7 @@ class AccessibleInstance
      * Called when trying to set a property value.
      *
      * @param string $propertyName
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($propertyName, $value)
     {
@@ -68,7 +68,7 @@ class AccessibleInstance
      * Called when trying to get a property value.
      *
      * @param string $propertyName
-     * 
+     *
      * @return mixed
      */
     public function __get($propertyName)
