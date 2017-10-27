@@ -183,7 +183,7 @@ if ($reflectedClass->hasMethod($methodName)) {
 
 We're testing only 2 methods, now think about 30 or 50??? No, no... Forget about it!
 
-#### Using MakeAccessible:
+## Using MakeAccessible:
 
 ```php
 $person = new Person('John Doe');
