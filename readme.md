@@ -24,7 +24,7 @@ Lightweight PHP package that let you easily test singleton classes and inaccessi
     
 ## Usage
 
-You can read witch problem we solve [here](https://github.com/e200).
+You can read about witch problems we solve [here](https://github.com/e200/MakeAccessible/tree/master/docs/problems).
 
 ## Best practices
 
