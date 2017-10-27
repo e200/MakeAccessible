@@ -1,73 +1,67 @@
 <?php
 
-use e200\MakeAccessible\Reflector;
+use Tests\Greeter;
 use PHPUnit\Framework\TestCase;
-use Tests\Yomi;
+use e200\MakeAccessible\Reflector;
 
 class ReflectorTest extends TestCase
 {
     public function testReflect()
     {
-        $this->assertInstanceOf(ReflectionClass::class, Reflector::reflect(Yomi::class));
+        $this->assertInstanceOf(ReflectionClass::class, Reflector::reflect(Greeter::class));
     }
 
     public function testIsAccessible()
     {
         $reflector = $this->getReflector();
-        $reflectedMethod = $this->getReflectedMethod();
-        $reflectedProperty = $this->getReflectedProperty();
+        $reflectedMethod = $this->reflectMethod('hasName');
+        $reflectedProperty = $this->reflectProperty('name');
 
         $this->assertFalse($reflector->isAccessible($reflectedMethod));
-        $this->assertTrue($reflector->isAccessible($reflectedProperty));
+        $this->assertFalse($reflector->isAccessible($reflectedProperty));
     }
 
     public function testMakeAccessible()
     {
         $reflector = $this->getReflector();
-        $reflectedInaccessibleMethod = $this->getReflectedMethod();
+        $inaccessibleMethod = $this->reflectMethod('hasName');
 
-        $reflector->makeAccessible($reflectedInaccessibleMethod);
+        $reflector->makeAccessible($inaccessibleMethod);
+        
+        $instance = $this->getInstance();
 
-        ////////////////////
-        // It's necessary //
-        ////////////////////
-        $instance = $this->getYomi();
-
-        $this->assertTrue($reflectedInaccessibleMethod->invoke($instance));
+        $this->assertTrue($inaccessibleMethod->invoke($instance));
     }
 
     public function testMakeAccessibleIfNot()
     {
         $reflector = $this->getReflector();
-        $reflectedInaccessibleMethod = $this->getReflectedMethod();
+        $inaccessibleMethod = $this->reflectMethod('hasName');
 
-        $reflector->makeAccessibleIfNot($reflectedInaccessibleMethod);
+        $reflector->makeAccessibleIfNot($inaccessibleMethod);
+        
+        $instance = $this->getInstance();
 
-        ////////////////////
-        // It's necessary //
-        ////////////////////
-        $instance = $this->getYomi();
-
-        $this->assertTrue($reflectedInaccessibleMethod->invoke($instance));
+        $this->assertTrue($inaccessibleMethod->invoke($instance));
     }
 
     public function getReflectedClass()
     {
-        return new ReflectionClass(Yomi::class);
+        return new ReflectionClass(Greeter::class);
     }
 
-    public function getReflectedMethod()
+    public function reflectMethod($method)
     {
         $reflectedClass = $this->getReflectedClass();
 
-        return $reflectedClass->getMethod('isNickName');
+        return $reflectedClass->getMethod($method);
     }
 
-    public function getReflectedProperty()
+    public function reflectProperty($property)
     {
         $reflectedClass = $this->getReflectedClass();
 
-        return $reflectedClass->getProperty('name');
+        return $reflectedClass->getProperty($property);
     }
 
     public function getReflector()
@@ -75,8 +69,8 @@ class ReflectorTest extends TestCase
         return new Reflector();
     }
 
-    public function getYomi()
+    public function getInstance()
     {
-        return new Yomi();
+        return new Greeter();
     }
 }

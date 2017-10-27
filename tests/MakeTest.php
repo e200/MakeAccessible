@@ -1,13 +1,13 @@
 <?php
 
+use Tests\Greeter;
+use Tests\Singleton;
+use e200\MakeAccessible\Make;
+use Tests\SingletonCalculator;
+use PHPUnit\Framework\TestCase;
 use e200\MakeAccessible\AccessibleInstance;
 use e200\MakeAccessible\Exceptions\InvalidInstanceException;
 use e200\MakeAccessible\Exceptions\InvalidSingletonClassNameException;
-use e200\MakeAccessible\Make;
-use PHPUnit\Framework\TestCase;
-use Tests\Calc;
-use Tests\Quazar;
-use Tests\Singleton;
 
 /**
  * Class MakeTest.
@@ -21,7 +21,7 @@ class MakeTest extends TestCase
      */
     public function testAccessible()
     {
-        $instance = $this->getEncapsulatedClass();
+        $instance = new Greeter();
 
         $accessibleInstance = Make::accessible($instance);
 
@@ -33,11 +33,9 @@ class MakeTest extends TestCase
      */
     public function testInvalidObjectInstanceExceptionOnInvalidInstanceProvided()
     {
-        $invalidInstance = 'Pluto';
-
         $this->expectException(InvalidInstanceException::class);
 
-        Make::accessible($invalidInstance);
+        Make::accessible(null);
     }
 
     /**
@@ -48,7 +46,7 @@ class MakeTest extends TestCase
         $instance = Make::instance(Singleton::class);
 
         $this->assertInstanceOf(Singleton::class, $instance);
-        $this->assertEquals('Works!', $instance->getMessage());
+        $this->assertTrue($instance->isOk());
     }
 
     /**
@@ -56,9 +54,9 @@ class MakeTest extends TestCase
      */
     public function testSingletonClassInstanceWithArgs()
     {
-        $instance = Make::instance(Calc::class, [1, 2]);
+        $instance = Make::instance(SingletonCalculator::class, [1, 2]);
 
-        $this->assertInstanceOf(Calc::class, $instance);
+        $this->assertInstanceOf(SingletonCalculator::class, $instance);
         $this->assertEquals(3, $instance->sum());
     }
 
@@ -68,7 +66,8 @@ class MakeTest extends TestCase
     public function testWrong()
     {
         $this->expectException(InvalidSingletonClassNameException::class);
-        Make::instance(200);
+
+        Make::instance(null);
     }
 
     /**
@@ -78,18 +77,6 @@ class MakeTest extends TestCase
     {
         $instance = Make::accessibleInstance(Singleton::class);
 
-        $this->assertTrue($instance->accessible());
-    }
-
-    public function getEncapsulatedClass()
-    {
-        return new Quazar();
-    }
-
-    public function getAccessibleInstance()
-    {
-        $instance = $this->getEncapsulatedClass();
-
-        return Make::accessible($instance);
+        $this->assertTrue($instance->isAccessible());
     }
 }

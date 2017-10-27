@@ -1,28 +1,26 @@
 <?php
 
+use Tests\Inaccessible;
+use PHPUnit\Framework\TestCase;
+use e200\MakeAccessible\Reflector;
 use e200\MakeAccessible\AccessibleInstance;
 use e200\MakeAccessible\Exceptions\MethodNotFoundException;
 use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
-use e200\MakeAccessible\Reflector;
-use PHPUnit\Framework\TestCase;
-use Tests\Quazar;
 
 class AccessibleInstanceTest extends TestCase
 {
     public function testInvokeProtectedMethod()
     {
-        $instance = $this->getEncapsulatedInstance();
+        $accessibleInstance = $this->getAccessibleInstance();
 
-        $accessibleInstance = $this->getAccessibleInstance($instance);
-
-        $this->assertEquals('Hello Universe!', $accessibleInstance->helloUniverse());
+        $this->assertTrue($accessibleInstance->protectedMethod());
     }
 
     public function testInvokePrivateMethod()
     {
         $accessibleInstance = $this->getAccessibleInstance();
 
-        $this->assertEquals('Hi Eleandro!', $accessibleInstance->sayHi('Eleandro'));
+        $this->assertTrue($accessibleInstance->privateMethod());
     }
 
     public function testMethodNotFoundNotFoundExceptionOnInvokeMethod()
@@ -38,14 +36,14 @@ class AccessibleInstanceTest extends TestCase
     {
         $accessibleInstance = $this->getAccessibleInstance();
 
-        $this->assertEquals('4.37 l/y', $accessibleInstance->alphaCentaurus);
+        $this->assertTrue($accessibleInstance->protectedProperty);
     }
 
     public function testGetPrivateProperty()
     {
         $accessibleInstance = $this->getAccessibleInstance();
 
-        $this->assertEquals('299.792.458 m/s', $accessibleInstance->lightSpeed);
+        $this->assertTrue($accessibleInstance->privateProperty);
     }
 
     public function testPropertyNotFoundNotFoundExceptionOnAccessProperty()
@@ -61,42 +59,64 @@ class AccessibleInstanceTest extends TestCase
     {
         $accessibleInstance = $this->getAccessibleInstance();
 
-        $expectedValue = 'Wow!!! Omega centaurus! :o';
+        $this->assertTrue($accessibleInstance->protectedProperty);
 
-        $accessibleInstance->alphaCentaurus = $expectedValue;
+        $accessibleInstance->protectedProperty = false;
 
-        $this->assertEquals($expectedValue, $accessibleInstance->alphaCentaurus);
+        $this->assertFalse($accessibleInstance->protectedProperty);
     }
 
     public function testSetPrivateProperty()
     {
         $accessibleInstance = $this->getAccessibleInstance();
+        
+        $this->assertTrue($accessibleInstance->privateProperty);
 
-        $expectedValue = 200;
+        $accessibleInstance->privateProperty = false;
 
-        $accessibleInstance->lightSpeed = $expectedValue;
+        $this->assertFalse($accessibleInstance->privateProperty);
+    }
 
-        $this->assertEquals($expectedValue, $accessibleInstance->lightSpeed);
+    public function testGetPrivateArrayProperty()
+    {
+        $accessibleInstance = $this->getAccessibleInstance();
+        
+        $this->assertTrue($accessibleInstance->privateArray[0]);
+        $this->assertFalse($accessibleInstance->privateArray[1]);
+    }
+
+    /**
+     * @covers AccessibleInstance::setArrayPropertyValue()
+     */
+    public function testSetPrivateArrayProperty()
+    {
+        $accessibleInstance = $this->getAccessibleInstance();
+        
+        $this->assertFalse($accessibleInstance->privateArray[1]);
+
+        $accessibleInstance->setArrayPropertyValue('privateArray', 1, true);
+
+        $this->assertTrue($accessibleInstance->privateArray[1]);
     }
 
     public function testPropertyNotFoundNotFoundExceptionOnSetProperty()
     {
+        $this->expectException(PropertyNotFoundNotFoundException::class);
+        
         $accessibleInstance = $this->getAccessibleInstance();
 
-        $this->expectException(PropertyNotFoundNotFoundException::class);
-
-        $accessibleInstance->nebulosa = 'Eye';
+        $accessibleInstance->unknowProperty;
     }
 
-    public function getEncapsulatedInstance()
+    public function getInstance()
     {
-        return new Quazar();
+        return new Inaccessible();
     }
 
     public function getAccessibleInstance($instance = null)
     {
         if (!$instance) {
-            $instance = $this->getEncapsulatedInstance();
+            $instance = $this->getInstance();
         }
 
         return new AccessibleInstance($instance, new Reflector($instance));
