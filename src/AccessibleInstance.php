@@ -62,27 +62,15 @@ class AccessibleInstance
             throw new MethodNotFoundException("No method \"{$methodName}\" was found on class \"{$this->reflectedClass->getName()}\".");
         }
     }
+    
+    public function __set($propertyName, $value)
+    {
+        $this->set($propertyName, $value);
+    }
 
-    /**
-     * Gets the `$propertyName`.
-     *
-     * @param string $propertyName Property name.
-     *
-     * @throws PropertyNotFoundNotFoundException
-     *
-     * @return mixed
-     */
     public function __get($propertyName)
     {
-        if ($this->reflectedClass->hasProperty($propertyName)) {
-            $property = $this->reflectedClass->getProperty($propertyName);
-
-            $this->reflector->makeAccessibleIfNot($property);
-
-            return $property->getValue($this->getInstance());
-        } else {
-            throw new PropertyNotFoundNotFoundException("No property \"{$propertyName}\" was found on class \"{$this->reflectedClass->getName()}\".");
-        }
+        return $this->get($propertyName);
     }
 
     /**
@@ -93,7 +81,7 @@ class AccessibleInstance
      *
      * @throws PropertyNotFoundNotFoundException
      */
-    public function __set($propertyName, $value)
+    public function set($propertyName, $value)
     {
         if ($this->reflectedClass->hasProperty($propertyName)) {
             $property = $this->reflectedClass->getProperty($propertyName);
@@ -104,5 +92,48 @@ class AccessibleInstance
         } else {
             throw new PropertyNotFoundNotFoundException("No property {$propertyName} was found on class \"{$this->reflectedClass->getName()}\".");
         }
+    }
+
+    /**
+     * Gets the `$propertyName`.
+     *
+     * @param string $propertyName Property name.
+     *
+     * @throws PropertyNotFoundNotFoundException
+     *
+     * @return mixed
+     */
+    public function get($propertyName)
+    {
+        if ($this->reflectedClass->hasProperty($propertyName)) {
+            $property = $this->reflectedClass->getProperty($propertyName);
+
+            $this->reflector->makeAccessibleIfNot($property);
+            
+            // Necessary to return the value by reference.
+            return $property->getValue($this->getInstance());
+        } else {
+            throw new PropertyNotFoundNotFoundException("No property \"{$propertyName}\" was found on class \"{$this->reflectedClass->getName()}\".");
+        }
+    }
+
+    /**
+     * Adds an item to an array property.
+     * 
+     * Unfortunatelly we cannot directly set an array index
+     * like: $instance->array[$index] = 'a', so, thats the
+     * the temporary alternative until we find another.
+     *
+     * @param string $propertyName
+     * @param string|int $index
+     * @param mixed $value
+     */
+    public function setArrayPropertyValue($propertyName, $index, $value)
+    {
+        $array = $this->get($propertyName);
+
+        $array[$index] = $value;
+        
+        $this->set($propertyName, $array);
     }
 }
