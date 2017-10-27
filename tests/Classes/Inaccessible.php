@@ -8,7 +8,7 @@ class Inaccessible
     protected $protectedProperty = true;
 
     private $privateArray = [true, false];
-    
+
     private function privateMethod()
     {
         return true;

@@ -4,7 +4,7 @@ namespace Tests;
 
 /**
  * Class SingletonCalculator.
- * 
+ *
  * @author Eleandro Duzentos <eleandro@inbox.ru>
  */
 class SingletonCalculator

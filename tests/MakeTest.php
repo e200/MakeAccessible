@@ -1,13 +1,13 @@
 <?php
 
-use Tests\Greeter;
-use Tests\Singleton;
-use e200\MakeAccessible\Make;
-use Tests\SingletonCalculator;
-use PHPUnit\Framework\TestCase;
 use e200\MakeAccessible\AccessibleInstance;
 use e200\MakeAccessible\Exceptions\InvalidInstanceException;
 use e200\MakeAccessible\Exceptions\InvalidSingletonClassNameException;
+use e200\MakeAccessible\Make;
+use PHPUnit\Framework\TestCase;
+use Tests\Greeter;
+use Tests\Singleton;
+use Tests\SingletonCalculator;
 
 /**
  * Class MakeTest.
