@@ -16,6 +16,12 @@ Lightweight PHP package that let you easily test singleton classes and inaccessi
 ## Installation
     composer require make/accessible
     
+## Features
+- [Call inaccessible methods](https://github.com/e200).
+- [Set values into inaccessible properties](https://github.com/e200).
+- [Get values from inaccessible properties](https://github.com/e200).
+- [Instantiate singleton classes](https://github.com/e200).
+    
 ## Usage
 
 **Problem:**
@@ -258,12 +264,6 @@ class PeopleGreeterTest extends TestCase
 ```
 
 For more tips about best practices, please, read our [best practices](https://github.com/e200/MakeAccessible/) documentation.
-
-## Features
-- Call inaccessible methods.
-- Get values from inaccessible properties.
-- Set values into inaccessible properties.
-- Instantiate classes with inaccessible constructors (Singletons).
 
 ## Support
 
