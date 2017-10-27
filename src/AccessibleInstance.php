@@ -62,7 +62,7 @@ class AccessibleInstance
             throw new MethodNotFoundException("No method \"{$methodName}\" was found on class \"{$this->reflectedClass->getName()}\".");
         }
     }
-    
+
     public function __set($propertyName, $value)
     {
         $this->set($propertyName, $value);
@@ -109,7 +109,7 @@ class AccessibleInstance
             $property = $this->reflectedClass->getProperty($propertyName);
 
             $this->reflector->makeAccessibleIfNot($property);
-            
+
             // Necessary to return the value by reference.
             return $property->getValue($this->getInstance());
         } else {
@@ -119,21 +119,21 @@ class AccessibleInstance
 
     /**
      * Adds an item to an array property.
-     * 
+     *
      * Unfortunatelly we cannot directly set an array index
      * like: $instance->array[$index] = 'a', so, thats the
      * the temporary alternative until we find another.
      *
-     * @param string $propertyName
+     * @param string     $propertyName
      * @param string|int $index
-     * @param mixed $value
+     * @param mixed      $value
      */
     public function setArrayPropertyValue($propertyName, $index, $value)
     {
         $array = $this->get($propertyName);
 
         $array[$index] = $value;
-        
+
         $this->set($propertyName, $array);
     }
 }

@@ -23,6 +23,6 @@ class Greeter
 
     public function greet()
     {
-        return $this->hasName() ? 'Hello!' : 'Hello ' . $this->name . '!';
+        return $this->hasName() ? 'Hello!' : 'Hello '.$this->name.'!';
     }
 }

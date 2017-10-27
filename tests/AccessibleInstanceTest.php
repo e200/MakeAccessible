@@ -1,11 +1,11 @@
 <?php
 
-use Tests\Inaccessible;
-use PHPUnit\Framework\TestCase;
-use e200\MakeAccessible\Reflector;
 use e200\MakeAccessible\AccessibleInstance;
 use e200\MakeAccessible\Exceptions\MethodNotFoundException;
 use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
+use e200\MakeAccessible\Reflector;
+use PHPUnit\Framework\TestCase;
+use Tests\Inaccessible;
 
 class AccessibleInstanceTest extends TestCase
 {
@@ -69,7 +69,7 @@ class AccessibleInstanceTest extends TestCase
     public function testSetPrivateProperty()
     {
         $accessibleInstance = $this->getAccessibleInstance();
-        
+
         $this->assertTrue($accessibleInstance->privateProperty);
 
         $accessibleInstance->privateProperty = false;
@@ -80,7 +80,7 @@ class AccessibleInstanceTest extends TestCase
     public function testGetPrivateArrayProperty()
     {
         $accessibleInstance = $this->getAccessibleInstance();
-        
+
         $this->assertTrue($accessibleInstance->privateArray[0]);
         $this->assertFalse($accessibleInstance->privateArray[1]);
     }
@@ -91,7 +91,7 @@ class AccessibleInstanceTest extends TestCase
     public function testSetPrivateArrayProperty()
     {
         $accessibleInstance = $this->getAccessibleInstance();
-        
+
         $this->assertFalse($accessibleInstance->privateArray[1]);
 
         $accessibleInstance->setArrayPropertyValue('privateArray', 1, true);
@@ -102,7 +102,7 @@ class AccessibleInstanceTest extends TestCase
     public function testPropertyNotFoundNotFoundExceptionOnSetProperty()
     {
         $this->expectException(PropertyNotFoundNotFoundException::class);
-        
+
         $accessibleInstance = $this->getAccessibleInstance();
 
         $accessibleInstance->unknowProperty;

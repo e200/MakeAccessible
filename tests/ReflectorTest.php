@@ -1,8 +1,8 @@
 <?php
 
-use Tests\Greeter;
-use PHPUnit\Framework\TestCase;
 use e200\MakeAccessible\Reflector;
+use PHPUnit\Framework\TestCase;
+use Tests\Greeter;
 
 class ReflectorTest extends TestCase
 {
@@ -27,7 +27,7 @@ class ReflectorTest extends TestCase
         $inaccessibleMethod = $this->reflectMethod('hasName');
 
         $reflector->makeAccessible($inaccessibleMethod);
-        
+
         $instance = $this->getInstance();
 
         $this->assertTrue($inaccessibleMethod->invoke($instance));
@@ -39,7 +39,7 @@ class ReflectorTest extends TestCase
         $inaccessibleMethod = $this->reflectMethod('hasName');
 
         $reflector->makeAccessibleIfNot($inaccessibleMethod);
-        
+
         $instance = $this->getInstance();
 
         $this->assertTrue($inaccessibleMethod->invoke($instance));
