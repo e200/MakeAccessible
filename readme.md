@@ -259,6 +259,8 @@ We gain access to our `PeopleGreeter::class` inaccessible members in a common an
 
 As you can see, with **Make/Accessible** you can now make your projects encapsulated withour fear!
 
+And you can also start testing singleton classes using **Make/Accessible**. Feature documentation soon.
+
 ## Best practices
 
 We highly recommend the use of this package for tests purposes only.
