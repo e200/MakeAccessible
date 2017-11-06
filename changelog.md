@@ -15,6 +15,7 @@ Internal improvements.
 Added new functionality:
 
 Now you can also make a singleton instances accessible by using:
+
 ```php
 $instance = Make::accessibleInstance(Singleton::class);
 ```
@@ -26,6 +27,7 @@ Some internal improvements.
 Added new functionality:
 
 Now you can also test singleton instances easily by using:
+
 ```php
 $instance = Make::instance(Singleton::class);
 ```
