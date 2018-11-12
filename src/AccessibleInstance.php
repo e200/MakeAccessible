@@ -26,8 +26,8 @@ class AccessibleInstance
     public function __construct($classNameOrInstance, Reflector $reflector)
     {
         $this->classNameOrInstance = $classNameOrInstance;
-        $this->reflector           = $reflector;
-        $this->reflectedClass      = $reflector->reflect($classNameOrInstance);
+        $this->reflector = $reflector;
+        $this->reflectedClass = $reflector->reflect($classNameOrInstance);
     }
 
     /**
