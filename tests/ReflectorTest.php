@@ -8,7 +8,7 @@ class ReflectorTest extends TestCase
 {
     public function testReflect()
     {
-        $this->assertInstanceOf(ReflectionClass::class, Reflector::reflect(Greeter::class));
+        $this->assertInstanceOf(ReflectionClass::class, (new Reflector)->reflect(Greeter::class));
     }
 
     public function testIsAccessible()
