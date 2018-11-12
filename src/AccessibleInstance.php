@@ -15,7 +15,7 @@ use e200\MakeAccessible\Exceptions\PropertyNotFoundNotFoundException;
 class AccessibleInstance
 {
     /** @var object */
-    protected $instance;
+    protected $classNameOrInstance;
 
     /** @var Reflector */
     protected $reflector;
@@ -23,21 +23,21 @@ class AccessibleInstance
     /** @var ReflectionClass */
     protected $reflectedClass;
 
-    public function __construct($instance, Reflector $reflector)
+    public function __construct($classNameOrInstance, Reflector $reflector)
     {
-        $this->instance = $instance;
-        $this->reflector = $reflector;
-        $this->reflectedClass = $reflector->reflect($instance);
+        $this->classNameOrInstance = $classNameOrInstance;
+        $this->reflector           = $reflector;
+        $this->reflectedClass      = $reflector->reflect($classNameOrInstance);
     }
 
     /**
-     * Gets the `static::$instance`.
+     * Gets the `static::$classNameOrInstance`.
      *
      * @return object
      */
-    public function getInstance()
+    public function getClassNameOrInstance()
     {
-        return $this->instance;
+        return $this->classNameOrInstance;
     }
 
     /**
@@ -77,7 +77,7 @@ class AccessibleInstance
     }
 
     /**
-     * Calls `$propertyName` method in the `static::$instance`.
+     * Calls `$propertyName` method in the `static::$classNameOrInstance`.
      *
      * @param string $methodName Method name.
      * @param array  $arguments  Method arguments.
@@ -93,8 +93,12 @@ class AccessibleInstance
 
             $this->reflector->makeAccessibleIfNot($method);
 
-            return $method->invokeArgs($this->getInstance(), $arguments);
+            return $method->invokeArgs($this->getClassNameOrInstance(), $arguments);
         } else {
+            if ($methodName === 'getClassNameOrInstance') {
+                return $this->getClassNameOrInstance();
+            }
+
             throw new MethodNotFoundException("No method \"{$methodName}\" was found on class \"{$this->reflectedClass->getName()}\".");
         }
     }
@@ -114,7 +118,7 @@ class AccessibleInstance
 
             $this->reflector->makeAccessibleIfNot($property);
 
-            $property->setValue($this->getInstance(), $value);
+            $property->setValue($this->getClassNameOrInstance(), $value);
         } else {
             throw new PropertyNotFoundNotFoundException("No property {$propertyName} was found on class \"{$this->reflectedClass->getName()}\".");
         }
@@ -137,7 +141,7 @@ class AccessibleInstance
             $this->reflector->makeAccessibleIfNot($property);
 
             // Necessary to return the value by reference.
-            return $property->getValue($this->getInstance());
+            return $property->getValue($this->getClassNameOrInstance());
         } else {
             throw new PropertyNotFoundNotFoundException("No property \"{$propertyName}\" was found on class \"{$this->reflectedClass->getName()}\".");
         }
@@ -147,7 +151,7 @@ class AccessibleInstance
      * Adds an item to an array property.
      *
      * Unfortunatelly we cannot directly set an array index
-     * like: `$instance->array[$index] = 'a'`, so, thats the
+     * like: `$classNameOrInstance->array[$index] = 'a'`, so, thats the
      * the temporary alternative until we find another.
      *
      * @param string     $propertyName
