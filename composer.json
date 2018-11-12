@@ -1,6 +1,7 @@
 {
     "name": "make/accessible",
     "description": "A very lightweight PHP package that let you easely access and test singleton classes and inaccessible instance members like private or protected methods and properties.",
+    "version": "v0.1",
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/e200/MakeAccessible",
