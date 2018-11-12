@@ -108,6 +108,11 @@ class AccessibleInstanceTest extends TestCase
         $accessibleInstance->unknowProperty;
     }
 
+    public function testGetInstance()
+    {
+        $this->assertTrue(true);
+    }
+
     public function getInstance()
     {
         return new Inaccessible();
